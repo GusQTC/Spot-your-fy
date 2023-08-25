@@ -37,6 +37,10 @@ jobs:
           destination: ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
+      - name: Run Python Script
+        uses: jannekem/run-python-script-action@v1.6
+        with:
+          script: .github/workflows/spotify.py
 
   # Deployment job
   deploy:
@@ -49,3 +53,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+
