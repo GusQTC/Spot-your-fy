@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Album Names by {{ artist_name }}</title>
+</head>
+<body>
+    <h1>Album Names</h1>
+    <ul>
+    {% for album in album_names %}
+        <li>{{ album }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
