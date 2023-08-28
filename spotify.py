@@ -10,7 +10,7 @@ from flask import Blueprint
 app = Flask(__name__)
 
 parser = configparser.ConfigParser()
-parser.read("Spot-your-fy/spotify.conf")
+parser.read("spotify.conf")
 client_id = parser.get("spotify_creds", "client_id")
 client_secret = parser.get("spotify_creds", "client_secret")
 
@@ -18,7 +18,7 @@ sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_
 
 @app.route('/')
 def my_form():
-    return render_template("spot.html") # This should be the name of your HTML file
+    return render_template("index.html") # This should be the name of your HTML file
 
 @app.route('/', methods=['GET','POST'])
 def my_form_post():
