@@ -20,7 +20,7 @@ sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_
 def my_form():
     return render_template("spot.html") # This should be the name of your HTML file
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET','POST'])
 def my_form_post():
     name = request.form['artist']
     results_artists = sp.search(q='artist:' + name, type='artist')
@@ -29,16 +29,22 @@ def my_form_post():
         artist = items[0]
         uri = artist['external_urls']['spotify']
 
-    results = sp.artist_albums(uri, album_type='album')
-    albums = results['items']
-    while results['next']:
-        results = sp.next(results)
-        albums.extend(results['items'])
+    if request.form.get('get_albums') == 'Check Albums!':
+        
 
-    album_names = []
-    for album in albums:
-        album_names.append(album['name'])
-    return render_template('albums.html', album_names=album_names, artist_name = name)
+        results = sp.artist_albums(uri, album_type='album')
+        albums = results['items']
+        while results['next']:
+            results = sp.next(results)
+            albums.extend(results['items'])
+
+        album_names = []
+        for album in albums:
+            album_names.append(album['name'])
+        return render_template('albums.html', album_names=album_names, artist_name = name)
+    elif request.form.get('get_followers') == 'Check Followers!':
+        followers = artist['followers']['total']
+        return render_template('followers.html', followers=followers, artist_name = name)
 
 if __name__ == '__main__':
     app.run(debug=True)
