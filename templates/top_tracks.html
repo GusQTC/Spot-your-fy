@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top Tracks of {{ user}} </title>
+</head>
+<body>
+    <ul>
+    {% for track in  track_names %}
+        <li>{{ track }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

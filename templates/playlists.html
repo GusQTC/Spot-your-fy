@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Playlists of {{ user}} </title>
+</head>
+<body>
+    <ul>
+    {% for playlist in  playlist_names %}
+        <li>{{ playlist }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
