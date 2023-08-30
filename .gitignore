@@ -1,1 +1,13 @@
 *.pyc
+spotify.conf
+lib
+~
+.cache
+firebase-debug.log
+public
+.cache
+.firebaserc
+.gcloudignore
+firebase.json
+package-locl.json
+functions

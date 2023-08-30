@@ -6,7 +6,6 @@ import json
 from flask import Flask
 from flask import request
 from flask import render_template
-from flask import Blueprint
 
 app = Flask(__name__)
 
@@ -19,11 +18,12 @@ sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_
 
 scope_user_top = "user-top-read"
 scope_user_playlists = "playlist-read-private"
-sp_oauth = SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri= SPOTIPY_REDIRECT_URI, scope=scope_user_top)
+sp_oauth = SpotifyOAuth(client_id=client_id, client_secret=client_secret, 
+                        redirect_uri= SPOTIPY_REDIRECT_URI, scope=scope_user_top)
 sp_user_top = spotipy.Spotify(auth_manager=sp_oauth)
-sp_auth = SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=SPOTIPY_REDIRECT_URI,scope=scope_user_playlists)
+sp_auth = SpotifyOAuth(client_id=client_id, client_secret=client_secret, 
+                        redirect_uri=SPOTIPY_REDIRECT_URI,scope=scope_user_playlists)
 sp_user_playlists = spotipy.Spotify(auth_manager=sp_auth)
-
 
 
 @app.route('/')
@@ -85,18 +85,3 @@ def my_form_post():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-'''
-AUTH_URL = 'https://accounts.spotify.com/api/token'
-
-results = spotify.artist_albums(birdy_uri, album_type='album')
-albums = results['items']
-while results['next']:
-    results = spotify.next(results)
-    albums.extend(results['items'])
-
-for album in albums:
-    print(album['name'])
-    '''
-
