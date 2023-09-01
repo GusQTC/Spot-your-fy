@@ -9,5 +9,9 @@ public
 .firebaserc
 .gcloudignore
 firebase.json
-package-locl.json
+package-lock.json
 functions
+node_modules
+package.json
+.github
+gcloud_venv

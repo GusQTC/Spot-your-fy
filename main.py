@@ -2,7 +2,6 @@ import configparser
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy.oauth2 import SpotifyOAuth
-import json
 from flask import Flask
 from flask import request
 from flask import render_template
@@ -29,6 +28,7 @@ sp_user_playlists = spotipy.Spotify(auth_manager=sp_auth)
 @app.route('/')
 def my_form():
     return render_template("index.html") # This should be the name of your HTML file
+
 
 @app.route('/', methods=['GET','POST'])
 def my_form_post():
@@ -84,4 +84,4 @@ def my_form_post():
         return render_template('playlists.html', playlist_names=playlist_names, user = user)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
