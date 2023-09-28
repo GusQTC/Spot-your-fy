@@ -3,12 +3,15 @@ import spotipy
 from spotipy import oauth2
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy.oauth2 import SpotifyOAuth
-from flask import Flask, request, url_for, session, redirect, render_template
+from flask import Flask, request, url_for, session, redirect, render_template, flash
 import datetime
 import bleach, schema
 from schema import Schema, And
+import secrets
 
 app = Flask(__name__)
+
+app.secret_key = secrets.token_hex(16)
 
 parser = configparser.ConfigParser()
 parser.read("spotify.conf")
@@ -37,16 +40,18 @@ def index():
 def buttons():
     
     if request.form.get('get_recs') == 'Get Recommendations':
+                
         schema = Schema(And(str, len))
 
         track_ex = request.form['track_ex']
-        if track_ex and len(track_ex) > 0:
-            track_ex = schema.validate(bleach.clean(track_ex))
-
         artist_ex = request.form['art_ex']
-        if artist_ex and len(artist_ex) > 0:
-            artist_ex = schema.validate(bleach.clean(artist_ex))
 
+        while not track_ex or not artist_ex:
+            flash('Please enter a valid track and artist name.')
+            return redirect(url_for('index'))
+
+        track_ex = schema.validate(bleach.clean(track_ex))
+        artist_ex = schema.validate(bleach.clean(artist_ex))
 
         results_artists = sp.search(q='artist:' + artist_ex, type='artist')
         items = results_artists['artists']['items']
@@ -74,7 +79,11 @@ def buttons():
 
     if request.form.get('get_albums') == 'Check Albums!':
         schema = Schema(And(str, len))
-        artist = schema.validate(request.form['artist'])
+        artist = request.form['artist']
+        while not artist:
+            flash('Please enter a valid artist name.')
+            return redirect(url_for('index'))
+        artist = schema.validate(artist)
         artist = bleach.clean(artist)
         results_artists = sp.search(q='artist:' + artist, type='artist')
         items = results_artists['artists']['items']
