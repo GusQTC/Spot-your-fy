@@ -2,13 +2,18 @@
 <html>
 <head>
     <title>Album Names by {{ artist_name }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+    <style>
+        /* Your existing custom styles */
+    </style>
 </head>
 <body>
-    <h1>Album Names</h1>
-    <ul>
+    <h1 class="display-4">Album Names</h1>
+    <div class="list-group">
     {% for album in album_names %}
-        <li>{{ album }}</li>
+        <a href="#" class="list-group-item list-group-item-action">{{ album }}</a>
     {% endfor %}
-    </ul>
+    </div>
 </body>
 </html>

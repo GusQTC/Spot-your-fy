@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Top Tracks of {{ user}} </title>
+    <title>Top Recommendations </title>
 </head>
 <body>
     <ul>
-    {% for track in  track_names %}
+    {% for track in result %}
         <li>{{ track }}</li>
     {% endfor %}
     </ul>

@@ -1,60 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
 <body>
+  <div class="container">
     <h1>Enter the Artist name</h1>
     <form method="POST">
-        <input type="text" name="artist" placeholder="Artist Name"/>
-        <input type="submit" name="get_albums" value="Check Albums!"/>
-        <input type="submit" name="get_followers" value="Check Followers!"/>
+      <div class="form-group">
+        <input type="text" class="form-control" name="artist" placeholder="Artist Name">
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary" name="get_albums" value="Check Albums!">
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary" name="get_followers" value="Check Followers!">
+      </div>
     </form>
-    <h2>Get Your Data</h2>
+    <h2>Get Recommendations</h2>
     <form method="POST">
-        <input type="submit" name="get_playlists" value="Check Playlists!"/>
-        <input type="submit" name="get_tracks" value="Check Tracks!"/>
-
-        <script type="module">
-
-            // Import the functions you need from the SDKs you need
-          
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js";
-          
-            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-analytics.js";
-          
-            // TODO: Add SDKs for Firebase products that you want to use
-          
-            // https://firebase.google.com/docs/web/setup#available-libraries
-          
-          
-            // Your web app's Firebase configuration
-          
-            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-          
-            const firebaseConfig = {
-          
-              apiKey: "AIzaSyCqJW2CakFLjtLMhULVlRfml8B4oataPLU",
-          
-              authDomain: "spot-your-fy.firebaseapp.com",
-          
-              projectId: "spot-your-fy",
-          
-              storageBucket: "spot-your-fy.appspot.com",
-          
-              messagingSenderId: "567134996550",
-          
-              appId: "1:567134996550:web:cbdff5ad27fcb02e33a247",
-          
-              measurementId: "G-NJX3NBLEJZ"
-          
-            };
-          
-          
-            // Initialize Firebase
-          
-            const app = initializeApp(firebaseConfig);
-          
-            const analytics = getAnalytics(app);
-          
-          </script>
+      <div class="form-group">
+        <input type="text" class="form-control" name="track_ex" placeholder="Song example">
+        <input type="text" class="form-control" name="art_ex" placeholder="Artist example">
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary" name="get_recs" value="Get Recommendations">
+      </div>
     </form>
+  </div>
 </body>
 </html>
