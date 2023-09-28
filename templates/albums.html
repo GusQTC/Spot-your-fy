@@ -3,16 +3,24 @@
 <head>
     <title>Album Names by {{ artist_name }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
     <style>
-        /* Your existing custom styles */
+        .album-container {
+            display: flex;
+            align-items: center;
+        }
+        .album-image {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
-    <h1 class="display-4">Album Names</h1>
+    <h1 class="display-4">Album Names by {{ artist_name }} with {{ followers }} followers!</h1>
     <div class="list-group">
-    {% for album in album_names %}
-        <a href="#" class="list-group-item list-group-item-action">{{ album }}</a>
+    {% for album_name, album_link, album_image_url in result %}
+        <div class="list-group-item list-group-item-action album-container">
+            <a href="{{ album_link }}"><img src="{{ album_image_url }}" class="album-image"></a>
+            <a href="{{ album_link }}">{{ album_name }}</a>
+        </div>
     {% endfor %}
     </div>
 </body>

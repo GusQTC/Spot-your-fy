@@ -35,27 +35,17 @@ def index():
 
 @app.route('/', methods=['GET', 'POST'])
 def buttons():
-
-
-    if request.form.get('get_followers') == 'Check Followers!':
-
-        schema = Schema(And(str, len))
-        artist = schema.validate(request.form['artist'])
-        artist = bleach.clean(artist)
-        results_artists = sp.search(q='artist:' + artist, type='artist')
-        items = results_artists['artists']['items']
-        if len(items) > 0:
-            artist = items[0]
-            followers = artist['followers']['total']
-        return render_template('followers.html', followers=followers, artist_name = artist)
     
     if request.form.get('get_recs') == 'Get Recommendations':
         schema = Schema(And(str, len))
-        track_ex = schema.validate(request.form['track_ex'])
-        track_ex = bleach.clean(track_ex)
 
-        artist_ex = schema.validate(request.form['art_ex'])
-        artist_ex = bleach.clean(artist_ex)
+        track_ex = request.form['track_ex']
+        if track_ex and len(track_ex) > 0:
+            track_ex = schema.validate(bleach.clean(track_ex))
+
+        artist_ex = request.form['art_ex']
+        if artist_ex and len(artist_ex) > 0:
+            artist_ex = schema.validate(bleach.clean(artist_ex))
 
 
         results_artists = sp.search(q='artist:' + artist_ex, type='artist')
@@ -71,11 +61,15 @@ def buttons():
             uri_track = track['external_urls']['spotify']
 
         result = sp.recommendations(seed_artists=[uri_artist], seed_tracks=[uri_track], limit=10)
-        recomendations = result['tracks']
-        song_names = []
-        for track in recomendations:
-            song_names.append(track['name'])
-        return render_template('recs.html', result = song_names)
+        recommendations = result['tracks']
+
+        song_links = []
+        for track in recommendations:
+            song_name = track['name']
+            song_art = track['album']['images'][0]['url']
+            song_link = track['external_urls']['spotify']
+            song_links.append((song_name, song_link))
+        return render_template('recs.html', result=song_links)
 
 
     if request.form.get('get_albums') == 'Check Albums!':
@@ -86,6 +80,8 @@ def buttons():
         items = results_artists['artists']['items']
         if len(items) > 0:
             artist = items[0]
+            followers = artist['followers']['total']
+            artist_name = artist['name']
             uri = artist['external_urls']['spotify']
 
         results = sp.artist_albums(uri, album_type='album')
@@ -96,8 +92,12 @@ def buttons():
 
         album_names = []
         for album in albums:
-            album_names.append(album['name'])
-        return render_template('albums.html', album_names=album_names, artist_name = artist)
+            album_name = album['name']
+            album_image_url = album['images'][0]['url']
+            album_link = album['external_urls']['spotify']
+
+            album_names.append((album_name, album_link, album_image_url))
+        return render_template('albums.html', result = album_names, followers = followers, artist_name = artist_name)
                         
 if __name__ == '__main__':
     app.run()
