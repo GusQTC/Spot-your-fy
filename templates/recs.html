@@ -2,16 +2,26 @@
 <html>
 <head>
     <title>Top Recommendations</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <style>
+        .album-container {
+            display: flex;
+            align-items: center;
+        }
+        .album-image {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
 <div class="container"> 
     <ul class="list-group"> 
-        {% for song_name, song_link in result %} 
-        <li class="list-group-item">
-            <a href="{{ song_link }}" target="_blank">{{ song_name }}</a>
-        </li> 
-        {% endfor %} 
+            {% for song_name, song_link, song_art in result %}
+                <div class="list-group-item list-group-item-action album-container">
+                    <a href="{{ song_link }}"><img src="{{ song_art }}" class="album-image"></a>
+                    <a href="{{ song_link }}">{{ song_name }}</a>
+                </div>
+            {% endfor %}
     </ul> 
 </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
