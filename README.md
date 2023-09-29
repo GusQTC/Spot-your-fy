@@ -11,9 +11,7 @@ This application in ongoing development leverages the Spotify API and the librar
 
 - ## Getting Started
 
-1. Clone the repository
-2. Install the dependencies
-3. Run the application
+Live on https://spot-your-fy.uc.r.appspot.com/
 
 ## License
 
