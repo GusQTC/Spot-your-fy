@@ -191,5 +191,5 @@ def buttons():
     return redirect(url_for("index"))
 
 
-if __name__ == "__main__":
-    app.run(use_reloader=False, passthrough_errors=True, debug=True)
+
+app.run(use_reloader=False, passthrough_errors=True, debug=True)
