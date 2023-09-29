@@ -6,9 +6,11 @@ import spotipy
 from spotipy import oauth2
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy.oauth2 import SpotifyOAuth
+from spotipy import util
 from flask import Flask, request, url_for, redirect, render_template, flash
 import bleach
 from schema import Schema, And
+import startup
 
 app = Flask(__name__)
 
@@ -187,9 +189,28 @@ def buttons():
         except TypeError as type_error:
             print(type_error)
 
+    if request.form.get("logger") == "Log In!":
+        response = startup.getUser()
+        return redirect(response)
+
     flash("Please enter a valid input.")
     return redirect(url_for("index"))
 
+
+@app.route("/callback/")
+def callback():
+    # Handle the callback from the Spotify authorization page
+    startup.getUserToken(request.args["code"])
+    return render_template("index.html")
+
+
+@app.route("/login")
+def login():
+    # Set up Spotify authentication scopes and redirect URL
+    response = startup.getUser()
+    return redirect(url_for(response))
+
+    # Redirect the user to the Spotify authorization page
 
 
 app.run(use_reloader=False, passthrough_errors=True, debug=True)

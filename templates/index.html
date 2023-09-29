@@ -1,42 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+  <title>My Beautiful Form</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
   <div class="container">
-    <h1>Enter the Artist name</h1>
-    <form method="POST">
-      <div class="form-group">
-        <input type="text" class="form-control" name="artist" placeholder="Artist Name">
-      </div>
-      <div class="form-group">
-        <input type="submit" class="btn btn-primary" name="get_albums" value="Check Albums!">
-      </div>
-    </form>
-    <h2>Get Recommendations</h2>
-    <form method="POST">
-      <div class="form-group">
-        <input type="text" class="form-control" name="track_ex" placeholder="Song example">
-        <input type="text" class="form-control" name="art_ex" placeholder="Artist example">
-      </div>
-      <div class="form-group">
-        <input type="submit" class="btn btn-primary" name="get_recs" value="Get Recommendations">
-      </div>
-    </form>
-  </div>
-  <div>
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <div class="alert alert-danger">
-      <ul>
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-      </ul>
+    <div class="mt-4">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse">
+          
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+            <form method="POST">
+              <button type="submit" class="nav-link btn btn-primary" name ="logger" value="Log In!">Log in</button>
+            </form>
+          </li>
+          </ul>
+        </div>
+      </nav>
     </div>
-  {% endif %}
-{% endwith %}
+    <div class="mt-4">
+      <form method="POST">
+        <div class="form-group">
+          <input type="text" class="form-control" name="artist" placeholder="Artist Name">
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-primary" name="get_albums" value="Check Albums!">
+        </div>
+      </form>
+
+      <form method="POST">
+        <div class="form-group">
+          <input type="text" class="form-control" name="track_ex" placeholder="Song example">
+          <input type="text" class="form-control" name="art_ex" placeholder="Artist example">
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-primary" name="get_recs" value="Get Recommendations">
+        </div>
+      </form>
+    </div>
+
+    <div class="mt-4">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-danger">
+            <ul>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      {% endwith %}
+    </div>
   </div>
 </body>
 </html>
